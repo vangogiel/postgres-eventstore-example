@@ -15,4 +15,5 @@ dist
 /.bsp
 .DS_Store
 .metals/
+.vscode/
 *~
