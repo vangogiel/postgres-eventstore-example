@@ -4,6 +4,7 @@ import cats.effect.{ Async, Resource }
 import cats.implicits.*
 import fs2.Stream
 import io.grpc.netty.shaded.io.grpc.netty.NettyServerBuilder
+import io.grpc.protobuf.services.ProtoReflectionService
 import io.grpc.{ Server, ServerServiceDefinition }
 
 object GrpcServer:
@@ -15,7 +16,7 @@ object GrpcServer:
     Stream.resource(resource(port, services)) >>
       Stream.never
 
-  def resource[F[_]: Async](
+  private def resource[F[_]: Async](
       port: Int,
       services: List[ServerServiceDefinition]
   ): Resource[F, Server] =
@@ -23,6 +24,7 @@ object GrpcServer:
       Async[F].delay {
         val builder = NettyServerBuilder.forPort(port)
         services.foreach(builder.addService)
+        builder.addService(ProtoReflectionService.newInstance())
         builder.build()
       }.flatTap(server => Async[F].delay(server.start()))
     } { server =>

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package io.vangogiel.example.finance;
+
+message TransferMoneyResponse {
+  string source_account_id = 1;
+  string destination_account_id = 2;
+  int64 amount_transferred = 3;
+  int64 source_account_balance = 4;
+}

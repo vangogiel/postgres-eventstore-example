@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package io.vangogiel.example.finance;
+
+message AccountBalanceRequest {
+  string account_id = 1;
+}

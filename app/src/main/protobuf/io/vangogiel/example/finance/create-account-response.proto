@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package io.vangogiel.example.finance;
+
+import "io/vangogiel/example/finance/handling-result.proto";
+
+message CreateAccountResponse {
+  string account_id = 1;
+}
