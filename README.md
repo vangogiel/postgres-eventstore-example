@@ -25,6 +25,7 @@ Commands:
 * DepositMoney
 * WithdrawMoney
 * TransferMoney
+* CloseAccount
 
 Events:
 * AccountOpened
@@ -32,14 +33,14 @@ Events:
 * MoneyWithdrawn
 * MoneyTransferSent
 * MoneyTransferReceived
+* AccountClosed
 
 Aggregate:
 ```Scala
 case class AccountAggregate(
   accountId: String,
-  balance: BigDecimal,
   version: Long,
-  state: State,
+  status: AccountStatus,
   behaviour: Behaviour
 )
 ```
@@ -79,4 +80,10 @@ MoneyTransferReceived {
     destinationAccountId: String,
     amount: BigDecimal
 }
+```
+
+```
+AccountClosed(
+    id: String
+)
 ```
