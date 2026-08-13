@@ -10,12 +10,11 @@ object AccountState:
 
   case class OpenedState(accountId: String, balance: BigDecimal) extends AccountState:
     def transition(event: Event): AccountState = event match
-      case AccountOpened => this
-      case AccountClosed => ClosedState(accountId, balance)
-      case _             => throw UnhandledTransition(this, event)
+      case AccountOpened(_) => this
+      case AccountClosed(_) => ClosedState(accountId, balance)
+      case _                => throw UnhandledTransition(this, event)
 
   case class ClosedState(accountId: String, balance: BigDecimal) extends AccountState:
     def transition(event: Event): AccountState = event match
-      case AccountOpened => OpenedState(accountId, balance)
-      case AccountClosed => this
-      case _             => throw UnhandledTransition(this, event)
+      case AccountClosed(_) => this
+      case _                => throw UnhandledTransition(this, event)
