@@ -1,6 +1,6 @@
 package io.vangogiel.example.finance.domain
 
-trait AccountState:
+sealed trait AccountState:
   def transition(event: Event): AccountState
 
 object AccountState:
