@@ -2,6 +2,7 @@ package io.vangogiel.example.finance.domain
 
 sealed trait AccountState:
   def accountId: String
+  def balance: BigDecimal
   def transition(event: Event): AccountState
 
 object AccountState:
